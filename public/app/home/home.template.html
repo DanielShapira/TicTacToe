@@ -1,0 +1,69 @@
+
+<div class="container">
+    <h1>Tic Tac Toe</h1>
+    <h5 style="color: red">{{playerNickName}} </h5>
+    <h5 style="color: red">{{WinMessage}} </h5>
+    <h5 style="color: red">{{vs}} </h5>
+    <h5 style="color: red">{{toastMessage}} </h5>
+
+</div>
+
+<br>
+
+<div class="board">
+    <div *ngFor="let row of boardTicTacToe; let j = index">
+        <div class="row" *ngFor="let col of row; let i = index" [ngSwitch]="boardTicTacToe[j][i]">
+            <button class="boardButton" *ngSwitchCase="'X'" (click) = "changeBoard(j,i)" style="background: red; color: white">{{col}}</button>
+            <button class="boardButton" *ngSwitchCase="'O'" (click) = "changeBoard(j,i)" style="background: limegreen;color: white">{{col}}</button>
+            <button class="boardButton" *ngSwitchCase="'-'" (click) = "changeBoard(j,i)">{{col}}</button>        </div>
+    </div>
+</div>
+
+<!-- ngSubmit, ngModel, ngFor -->
+<div class="container">
+  <div class="row chat-window col-xs-5 col-md-3">
+    <div class="col-xs-12 col-md-12">
+        <div class="panel">
+            <div class="panel-heading chat-top-bar">
+                <div class="col-md-8 col-xs-8">
+                    <h1 style="font-size: 30px" class="panel-title">צ'אט</h1>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="msg-container-base">
+                    <div class="row msg-container" *ngFor="let message of messages" style="width: 100%">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="chat-msg">
+                                <p style=" word-wrap: break-word;color: red">{{message.nickName}}</p>
+                                <p style=" word-wrap: break-word;">{{ message.text }}</p>
+                                <span>{{ message.date | date: 'shortTime' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-bottom-bar">
+                    <form style="display:inherit" (ngSubmit)="sendMessage()">
+                        <div class="input-group" >
+                            <input type="text" class="form-control input-sm chat-input" placeholder="Enter message" name= "messageText" [(ngModel)]="messageText" />
+                            <span class="input-group-btn">
+                            <input type="submit" class="btn btn-sm chat-submit-button" />
+                        </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+<div class = "waitWindow">
+    <table class="waitingTable">
+        <tr>
+            <th><h3 style="color: red">ממתינים</h3></th>
+        </tr>
+        <tr *ngFor="let player of watingPlayers">
+            <td>{{player.nickName}}</td>
+        </tr>
+    </table>
+</div>

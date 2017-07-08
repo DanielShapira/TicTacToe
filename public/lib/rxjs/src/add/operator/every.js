@@ -1,0 +1,5 @@
+"use strict";
+const Observable_1 = require('../../Observable');
+const every_1 = require('../../operator/every');
+Observable_1.Observable.prototype.every = every_1.every;
+//# sourceMappingURL=every.js.map
