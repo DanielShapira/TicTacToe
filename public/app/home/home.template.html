@@ -14,7 +14,8 @@
             <div class="row" *ngFor="let col of row; let i = index" [ngSwitch]="boardTicTacToe[j][i]">
                 <button class="boardButton" *ngSwitchCase="'X'" (click) = "changeBoard(j,i)" style="background: red; color: white">{{col}}</button>
                 <button class="boardButton" *ngSwitchCase="'O'" (click) = "changeBoard(j,i)" style="background: limegreen;color: white">{{col}}</button>
-                <button class="boardButton" *ngSwitchCase="'-'" (click) = "changeBoard(j,i)">{{col}}</button>        </div>
+                <button class="boardButton" *ngSwitchCase="'-'" (click) = "changeBoard(j,i)">{{col}}</button>
+            </div>
         </div>
     </div>
 
