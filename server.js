@@ -106,6 +106,6 @@ http.listen(process.env.PORT || 3000, function(){
     console.log('listening on', http.address().port);
 });
 
-server.listen(port, function () {
-    console.log("Listening on port " + port);
-});
+// server.listen(port, function () {
+//     console.log("Listening on port " + port);
+// });
