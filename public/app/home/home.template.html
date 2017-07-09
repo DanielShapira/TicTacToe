@@ -30,6 +30,16 @@
                     </div>
                 </div>
                 <div class="panel-body">
+                    <div class="chat-bottom-bar">
+                        <form style="display:inherit" (ngSubmit)="sendMessage()">
+                            <div class="input-group" >
+                                <input type="text" class="form-control input-sm chat-input" placeholder="Enter message" name= "messageText" [(ngModel)]="messageText" />
+                                <span class="input-group-btn">
+                                <input type="submit" class="btn btn-sm chat-submit-button" />
+                            </span>
+                            </div>
+                        </form>
+                    </div>
                     <div class="msg-container-base">
                         <div class="row msg-container" *ngFor="let message of messages" style="width: 100%">
                             <div class="col-md-12 col-xs-12">
@@ -40,16 +50,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="chat-bottom-bar">
-                        <form style="display:inherit" (ngSubmit)="sendMessage()">
-                            <div class="input-group" >
-                                <input type="text" class="form-control input-sm chat-input" placeholder="Enter message" name= "messageText" [(ngModel)]="messageText" />
-                                <span class="input-group-btn">
-                                <input type="submit" class="btn btn-sm chat-submit-button" />
-                            </span>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
