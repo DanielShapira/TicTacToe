@@ -33,22 +33,24 @@ export class HomeComponent implements OnInit {
           this.playerNickName = prompt("הכנס כינוי");
       }while( this.playerNickName == null ||  this.playerNickName == "" );
 
+      //Update all users on new user entered
       this._socketService.emit('player-added', this.playerNickName);
 
+      //Listen to player array changes
       this._socketService.on('player-array', (playerArray: any) => {
           this.playersArray = playerArray.playing;
           this.vs = "";
 
           if(this.playersArray.length == 1 && this.type != '-'){
             this.toastMessage = "מחכה ליריב";
-          }else if(this.type != '-'){
-              this.toastMessage = "משחק החל בהצלחה";
-          }else{
+          }else if(this.type == '-'){
               this.toastMessage = "אתה צופה במשחק";
           }
 
-          if(this.playersArray.length == 2)
-              this.vs = this.playersArray[0].nickName + "(X)  vs  " + this.playersArray[1].nickName + " (O)";
+          if(this.playersArray.length == 2 && this.type != '-') {
+              this.toastMessage = "משחק החל בהצלחה";
+              this.vs = this.playersArray[1].nickName + "(X)  vs  " + this.playersArray[0].nickName + " (O)";
+          }
 
           this.watingPlayers = playerArray.waiting;
       });
@@ -62,6 +64,7 @@ export class HomeComponent implements OnInit {
           this.messages.unshift(msg);
       });
 
+      //Listen to board changes
       this._socketService.on('change-board', (data: any) => {
           this.boardTicTacToe = data.board;
 
@@ -90,6 +93,7 @@ export class HomeComponent implements OnInit {
     this.messageText = '';
   }
 
+  //Board on click listener
    changeBoard(row:number, col:number){
       if(this.playersArray.length == 2 && this.type != '-' &&  this.boardTicTacToe[row][col] != "X" &&  this.boardTicTacToe[row][col] != "O" && this.turn == this.type) {
           this.toastMessage = "";

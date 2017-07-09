@@ -22,21 +22,22 @@ let HomeComponent = class HomeComponent {
         do {
             this.playerNickName = prompt("הכנס כינוי");
         } while (this.playerNickName == null || this.playerNickName == "");
+        //Update all users on new user entered
         this._socketService.emit('player-added', this.playerNickName);
+        //Listen to player array changes
         this._socketService.on('player-array', (playerArray) => {
             this.playersArray = playerArray.playing;
             this.vs = "";
             if (this.playersArray.length == 1 && this.type != '-') {
                 this.toastMessage = "מחכה ליריב";
             }
-            else if (this.type != '-') {
-                this.toastMessage = "משחק החל בהצלחה";
-            }
-            else {
+            else if (this.type == '-') {
                 this.toastMessage = "אתה צופה במשחק";
             }
-            if (this.playersArray.length == 2)
-                this.vs = this.playersArray[0].nickName + "(X)  vs  " + this.playersArray[1].nickName + " (O)";
+            if (this.playersArray.length == 2 && this.type != '-') {
+                this.toastMessage = "משחק החל בהצלחה";
+                this.vs = this.playersArray[1].nickName + "(X)  vs  " + this.playersArray[0].nickName + " (O)";
+            }
             this.watingPlayers = playerArray.waiting;
         });
         this._socketService.on('type', (data) => {
@@ -46,6 +47,7 @@ let HomeComponent = class HomeComponent {
         this._socketService.on('message-received', (msg) => {
             this.messages.unshift(msg);
         });
+        //Listen to board changes
         this._socketService.on('change-board', (data) => {
             this.boardTicTacToe = data.board;
             if (data.turn == this.type) {
@@ -70,6 +72,7 @@ let HomeComponent = class HomeComponent {
         this._socketService.emit('send-message', message);
         this.messageText = '';
     }
+    //Board on click listener
     changeBoard(row, col) {
         if (this.playersArray.length == 2 && this.type != '-' && this.boardTicTacToe[row][col] != "X" && this.boardTicTacToe[row][col] != "O" && this.turn == this.type) {
             this.toastMessage = "";
