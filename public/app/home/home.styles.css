@@ -82,6 +82,7 @@
 /* line 14, ../sass/components/chat-bottom-bar.scss */
 .chat-bottom-bar input {
     height: calc(70px - 30px);
+    direction: rtl;
 }
 
 /* line 4, ../sass/components/chat-msg-container.scss */
